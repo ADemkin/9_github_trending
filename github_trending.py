@@ -10,7 +10,7 @@ def get_date_weekstart():
 
 def get_trending_repositories(top_size):
     # make a request using github api
-    # keys: created less than week ago, sorted by number of stars
+    # keys: created since monday, sorted by number of stars
     payload = {'q':'created:>' + str(get_date_weekstart()), 'sort':'stars', 'order':'desc'}
     request = requests.get('https://api.github.com/search/repositories', params=payload)
     return request.json()['items'][:top_size]
