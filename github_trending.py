@@ -22,7 +22,8 @@ def print_repo_info(repo):
 
 def main():
     try:
-        top_repos = get_trending_repositories(20)
+        top_size = 20
+        top_repos = get_trending_repositories(top_size)
     except requests.exceptions.ConnectionError as error:
         print("Connection error: %s" % error)
     else:
