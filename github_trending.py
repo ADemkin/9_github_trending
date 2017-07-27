@@ -2,17 +2,16 @@ import requests
 import datetime
 
 
-def get_date_week_ago():
+def get_date_weekstart():
     today = datetime.datetime.now()
-    week = datetime.timedelta(days=7)
-    week_ago = today - week
-    return week_ago.date()
+    week = today.replace(day = (today.day - today.weekday()))
+    return week.date()
 
 
 def get_trending_repositories(top_size):
     # make a request using github api
     # keys: created less than week ago, sorted by number of stars
-    payload = {'q':'created:>' + str(get_date_week_ago()), 'sort':'stars', 'order':'desc'}
+    payload = {'q':'created:>' + str(get_date_weekstart()), 'sort':'stars', 'order':'desc'}
     request = requests.get('https://api.github.com/search/repositories', params=payload)
     return request.json()['items'][:top_size]
 
